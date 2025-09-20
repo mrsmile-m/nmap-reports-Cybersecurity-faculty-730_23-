@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Nmap Hisobotlari — Guruh 730_23</title>
   <style>
     body {
@@ -10,38 +10,123 @@
       margin: 0;
       padding: 20px;
     }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
     h1 {
       text-align: center;
       color: #2c3e50;
+      margin-bottom: 12px;
     }
-    ul {
-      max-width: 600px;
-      margin: 40px auto;
+    p.lead {
+      text-align: center;
+      color: #556;
+      margin-top: 0;
+    }
+    ul.reports {
+      max-width: 700px;
+      margin: 30px auto;
       padding: 0;
       list-style: none;
     }
-    li {
-      margin: 15px 0;
+    li.item {
+      margin: 12px 0;
     }
-    a {
-      display: block;
+    a.report-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       background: #3498db;
       color: white;
       text-decoration: none;
       padding: 12px 18px;
       border-radius: 8px;
-      transition: 0.3s;
+      transition: background 0.2s, transform 0.08s;
     }
-    a:hover {
-      background: #2980b9;
+    a.report-link:hover { transform: translateY(-2px); }
+    a.report-link .meta { font-size: 0.9rem; opacity: 0.9; }
+    a.report-link.missing {
+      background: #bfc7d1;
+      pointer-events: none;
+      color: #445;
+    }
+    footer {
+      text-align: center;
+      margin-top: 28px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    .note {
+      max-width: 700px;
+      margin: 10px auto;
+      color: #444;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <h1>📄 Nmap Hisobotlari — Guruh 730_23</h1>
-  <ul>
-    <li><a href="scanned_by_abdumannonov.html">Abdumannonov natijasi</a></li>
-    <li><a href="scanned_by_mirzoazamov.html">Mirzoazamov natijasi</a></li>
-  </ul>
+  <div class="container">
+    <h1>📄 Nmap Hisobotlari — Guruh 730_23</h1>
+    <p class="lead">Quyida guruh a’zolari tomonidan yuklangan skan natijalari (HTML) ro‘yxati.</p>
+
+    <!--
+      Fayl nomlarini shu yerda tahrir qiling:
+      - href attributlariga repo ichidagi .html fayllaringiz nomlarini to'g'ri yozing.
+      - Agar yangi fayl qo'shsangiz, shu <li> tagni nusxalab yangi fayl nomini kiriting.
+    -->
+    <ul class="reports" id="reportsList">
+      <li class="item"><a class="report-link" href="scanned_by_abdumannonov.html" target="_blank">
+        <span>Abdumannonov — to'liq skan natijasi</span>
+        <span class="meta">scanned_by_abdumannonov.html</span>
+      </a></li>
+
+      <li class="item"><a class="report-link" href="scanned_by_mirzoazamov.html" target="_blank">
+        <span>Mirzoazamov — to'liq skan natijasi</span>
+        <span class="meta">scanned_by_mirzoazamov.html</span>
+      </a></li>
+
+      <!-- Agar fayl nomi boshqacha bo'lsa shu joyga o'zgartiring -->
+      <li class="item"><a class="report-link" href="scanned_by_ogabek.html" target="_blank">
+        <span>Og'abek — to'liq skan natijasi</span>
+        <span class="meta">scanned_by_ogabek.html</span>
+      </a></li>
+
+      <!-- Misol: integrouz yoki boshqa a'zo fayli -->
+      <li class="item"><a class="report-link" href="scanned_by_rahimov.html" target="_blank">
+        <span>Rahimov / my.konami.net — to'liq skan natijasi</span>
+        <span class="meta">scanned_by_rahimov.html</span>
+      </a></li>
+    </ul>
+
+    <div class="note">
+      <strong>Eslatma:</strong> agar link kulrang bo‘lib koʻrsa — demak, shu nomdagi fayl repo ichida yo‘q. 
+      Fayl nomini tekshirib (`scanned_by_xxxxx.html`) tog‘ri nom bilan almashtiring va commit qiling.
+    </div>
+
+    <footer>
+      © Guruh 730_23 — Nmap hisobot to‘plami
+    </footer>
+  </div>
+
+  <script>
+    // Avtomatik mavjudlikni tekshiruvchi skript:
+    // Agar fayl topilmasa, linkga "missing" klassi qo'shiladi (kul rang va kliklanmaydi).
+    (function(){
+      const links = document.querySelectorAll('a.report-link');
+      links.forEach(link=>{
+        const url = link.getAttribute('href');
+        // HEAD so'rovi bilan tekshirish (same-origin bo'lgani uchun GitHub Pages'da ishlaydi)
+        fetch(url, { method: 'HEAD' })
+          .then(res => {
+            if (!res.ok) link.classList.add('missing');
+          })
+          .catch(err => {
+            // Tarmoqli xato yoki fayl topilmadi
+            link.classList.add('missing');
+          });
+      });
+    })();
+  </script>
 </body>
 </html>
